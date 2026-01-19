@@ -1,29 +1,44 @@
-import { logo } from "@/assets";
+import { useState } from "react";
+import clsx from "clsx";
 
-function App() {
+import { logo } from "@/assets";
+import type { ViewsType } from "@/types";
+import { CreateReport, Reports } from "@/views";
+
+const App = () => {
+  const [currentView, setCurrentView] = useState<ViewsType>("create");
+
   return (
     <>
       <header className="flex justify-center-safe p-6">
         <img src={logo} alt="logo" className="logo" />
         <nav className="flex gap-2 ml-20">
           <button
-            // onClick={() => onNavigate("create")}
-            // className={currentView === "create" ? "font-bold" : ""}
-            className="mr-8 font-medium text-base hover:text-blue-primary cursor-pointer"
+            onClick={() => setCurrentView("create")}
+            className={clsx(
+              "mr-8 font-medium text-base hover:text-blue-primary cursor-pointer",
+              currentView === "create" ? "text-blue-primary" : "text-black",
+            )}
           >
-            Crear reporte
+            Reportar un problema
           </button>
           <button
-            className="mr-8 font-medium text-base hover:text-blue-primary cursor-pointer"
-            // onClick={() => onNavigate("list")}
-            // className={currentView === "list" ? "font-bold" : ""}
+            onClick={() => setCurrentView("reportList")}
+            className={clsx(
+              "mr-8 font-medium text-base hover:text-blue-primary cursor-pointer",
+              currentView === "reportList" ? "text-blue-primary" : "text-black",
+            )}
           >
-            Ver reportes
+            Mis reportes
           </button>
         </nav>
       </header>
+      <main className="w-full max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+        {currentView === "create" && <CreateReport />}
+        {currentView === "reportList" && <Reports />}
+      </main>
     </>
   );
-}
+};
 
 export default App;
