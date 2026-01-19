@@ -21,9 +21,11 @@ export default function CreateReport() {
                 className="block text-sm/6 font-medium text-black"
               >
                 Asunto
+                <span className="ml-1 text-red-600">*</span>
               </label>
               <div className="mt-2">
                 <input
+                  required
                   id="subject"
                   name="subject"
                   type="text"
@@ -38,9 +40,11 @@ export default function CreateReport() {
                 className="block text-sm/6 font-medium text-black"
               >
                 Detalle
+                <span className="ml-1 text-red-600">*</span>
               </label>
               <div className="mt-2">
                 <input
+                  required
                   id="detail"
                   name="detail"
                   type="text"
