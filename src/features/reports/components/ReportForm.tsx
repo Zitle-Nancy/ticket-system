@@ -1,24 +1,18 @@
+import type { FormEvent } from "react";
 import { ChevronDownIcon, PhotoIcon } from "@heroicons/react/24/solid";
-import type { ReportType } from "../types/report.types";
+import type { FormTypes } from "../types/report.types";
 import useReportForm from "../hooks/useReportForm";
-
-interface FormProps {
-  headTitle: string;
-  initialValues: ReportType;
-  onSubmit: (values: ReportType) => void;
-  onCancel: () => void;
-}
 
 const ReportForm = ({
   headTitle,
   initialValues,
   onSubmit,
   onCancel,
-}: FormProps) => {
+}: FormTypes) => {
   const { values, handleChange } = useReportForm(initialValues);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
     onSubmit(values);
   };
 
@@ -88,7 +82,7 @@ const ReportForm = ({
                 <PhotoIcon className="mx-auto h-12 w-12 text-gray-400" />
                 <label className="mt-4 block cursor-pointer text-sm font-semibold text-indigo-600">
                   Upload file
-                  <input
+                  {/* <input
                     type="file"
                     className="hidden"
                     onChange={(e) =>
@@ -97,7 +91,7 @@ const ReportForm = ({
                         e.target.files ? e.target.files[0] : null,
                       )
                     }
-                  />
+                  /> */}
                 </label>
               </div>
             </div>

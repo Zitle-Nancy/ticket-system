@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ReportType } from "@/types";
+import type { ReportType } from "../types/report.types";
 
 const useReportForm = (initialValues: ReportType) => {
   const [values, setValues] = useState<ReportType>(initialValues);

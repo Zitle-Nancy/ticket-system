@@ -32,7 +32,9 @@ const App = () => {
         </nav>
       </header>
       <main className="w-full max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-sm border border-gray-200">
-        {currentView === "create" && <CreateReport />}
+        {currentView === "create" && (
+          <CreateReport onReportCreated={() => setCurrentView("reportList")} />
+        )}
         {currentView === "reportList" && <Reports />}
       </main>
     </>
