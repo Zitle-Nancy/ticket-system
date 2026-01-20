@@ -1,25 +1,39 @@
-import type { ReportFormType } from "@/types";
+import { formattedDate } from "../../../helpers/format";
 import { ReportForm } from "../components";
+import { useAddReportMutation } from "../services/reportApi";
+import type { ReportType } from "../types/report.types";
 
-const EMPTY_TICKET: ReportFormType = {
+const EMPTY_TICKET: ReportType = {
   id: "",
   subject: "",
-  priority: "low",
+  priority: "baja",
+  detail: "",
   attachment: "",
   createdAt: "",
-  status: "open",
+  status: "pendiente",
 };
 
-const CreateReport = () => {
-  const onSubmit = () => {};
-  const onCancel = () => {};
+const CreateReport = ({ onReportCreated }: { onReportCreated: () => void }) => {
+  const [addReport] = useAddReportMutation();
+  const uuid = crypto.randomUUID();
+  const date = new Date();
+
+  const onSubmit = async (values: ReportType) => {
+    await addReport({
+      ...values,
+      id: uuid,
+      createdAt: formattedDate(date),
+      status: "pendiente",
+    });
+    onReportCreated();
+  };
 
   return (
     <ReportForm
       headTitle={"Reporta un problema"}
       initialValues={EMPTY_TICKET}
       onSubmit={onSubmit}
-      onCancel={onCancel}
+      onCancel={onReportCreated}
     />
   );
 };
