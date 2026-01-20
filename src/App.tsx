@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import clsx from "clsx";
+import { CreateReport, Reports, type ViewsType } from "./features/reports";
+import { logo } from "./assets";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [currentView, setCurrentView] = useState<ViewsType>("create");
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <header className="flex justify-center-safe p-6">
+        <img src={logo} alt="logo" className="logo" />
+        <nav className="flex gap-2 ml-20">
+          <button
+            onClick={() => setCurrentView("create")}
+            className={clsx(
+              "mr-8 font-medium text-base hover:text-blue-primary cursor-pointer",
+              currentView === "create" ? "text-blue-primary" : "text-black",
+            )}
+          >
+            Reportar un problema
+          </button>
+          <button
+            onClick={() => setCurrentView("reportList")}
+            className={clsx(
+              "mr-8 font-medium text-base hover:text-blue-primary cursor-pointer",
+              currentView === "reportList" ? "text-blue-primary" : "text-black",
+            )}
+          >
+            Mis reportes
+          </button>
+        </nav>
+      </header>
+      <main className="w-full max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+        {currentView === "create" && (
+          <CreateReport onReportCreated={() => setCurrentView("reportList")} />
+        )}
+        {currentView === "reportList" && <Reports />}
+      </main>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
