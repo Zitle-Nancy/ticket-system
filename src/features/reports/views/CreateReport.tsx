@@ -6,11 +6,11 @@ import type { ReportType } from "../types/report.types";
 const EMPTY_TICKET: ReportType = {
   id: "",
   subject: "",
-  priority: "baja",
+  priority: "Baja",
   detail: "",
   attachment: "",
   createdAt: "",
-  status: "pendiente",
+  status: "Pendiente",
 };
 
 const CreateReport = ({ onReportCreated }: { onReportCreated: () => void }) => {
@@ -23,7 +23,7 @@ const CreateReport = ({ onReportCreated }: { onReportCreated: () => void }) => {
       ...values,
       id: uuid,
       createdAt: formattedDate(date),
-      status: "pendiente",
+      status: "Pendiente",
     });
     onReportCreated();
   };
@@ -33,7 +33,6 @@ const CreateReport = ({ onReportCreated }: { onReportCreated: () => void }) => {
       headTitle={"Reporta un problema"}
       initialValues={EMPTY_TICKET}
       onSubmit={onSubmit}
-      onCancel={onReportCreated}
     />
   );
 };

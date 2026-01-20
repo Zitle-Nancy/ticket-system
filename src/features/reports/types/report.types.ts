@@ -1,5 +1,5 @@
-export type ReportPriority = "baja" | "media" | "alta";
-export type ReportStatus = "completado" | "enProgreso" | "pendiente";
+export type ReportPriority = "Baja" | "Media" | "Alta";
+export type ReportStatus = "Completado" | "En Progreso" | "Pendiente";
 
 export type ReportType = {
   id: string;
@@ -21,5 +21,10 @@ export type FormTypes = {
   headTitle: string;
   initialValues: ReportType;
   onSubmit: (values: ReportType) => void;
-  onCancel: () => void;
+};
+
+export type ReportDetailType = {
+  report: ReportType | null;
+  isOpen: boolean;
+  onClose: () => void;
 };
