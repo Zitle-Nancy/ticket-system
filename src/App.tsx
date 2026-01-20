@@ -1,9 +1,7 @@
 import { useState } from "react";
 import clsx from "clsx";
-
-import { logo } from "@/assets";
-import type { ViewsType } from "@/types";
-import { CreateReport, Reports } from "@/views";
+import { CreateReport, Reports, type ViewsType } from "./features/reports";
+import { logo } from "./assets";
 
 const App = () => {
   const [currentView, setCurrentView] = useState<ViewsType>("create");

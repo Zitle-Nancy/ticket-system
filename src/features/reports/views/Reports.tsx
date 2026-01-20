@@ -1,10 +1,4 @@
 import React, { useState } from "react";
-// import {
-//   MoreHorizontal,
-//   ChevronLeft,
-//   ChevronRight,
-//   Circle,
-// } from "lucide-react";
 
 const Periods = () => {
   // Datos de ejemplo
@@ -119,14 +113,11 @@ const Periods = () => {
                   <span
                     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getEstatusStyle(item.estatus)}`}
                   >
-                    {/* <Circle className="w-2 h-2 mr-1.5 fill-current" /> */}
                     {item.estatus}
                   </span>
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  <button className="p-1 hover:bg-gray-200 rounded-lg transition-colors">
-                    {/* <MoreHorizontal className="w-5 h-5 text-gray-400" /> */}
-                  </button>
+                  <button className="p-1 hover:bg-gray-200 rounded-lg transition-colors"></button>
                 </td>
               </tr>
             ))}
@@ -134,7 +125,6 @@ const Periods = () => {
         </table>
       </div>
 
-      {/* Paginación */}
       <div className="flex items-center justify-between px-6 py-4 bg-gray-50/50 border-t border-gray-200 rounded-b-xl">
         <p className="text-sm text-gray-600">
           Mostrando{" "}
@@ -150,7 +140,6 @@ const Periods = () => {
             disabled={paginaActual === 1}
             className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           >
-            {/* <ChevronLeft className="w-4 h-4 mr-1" /> */}
             Previous
           </button>
           <button
@@ -161,7 +150,6 @@ const Periods = () => {
             className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           >
             Next
-            {/* <ChevronRight className="w-4 h-4 ml-1" /> */}
           </button>
         </div>
       </div>
