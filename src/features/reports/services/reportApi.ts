@@ -1,48 +1,48 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { ReportType } from "@/types";
+import type { ReportType } from "../types/report.types";
 
-const STORAGE_KEY = "tickets";
+const STORAGE_KEY = "report";
 
-const getTicketsFromStorage = (): ReportType[] =>
+const getReportsFromStorage = (): ReportType[] =>
   JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
 
-const saveTicketsToStorage = (tickets: ReportType[]) =>
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(tickets));
+const saveReportsToStorage = (reports: ReportType[]) =>
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(reports));
 
-export const ticketsApi = createApi({
-  reducerPath: "ticketsApi",
+export const reportApi = createApi({
+  reducerPath: "reportApi",
   baseQuery: fakeBaseQuery(),
-  tagTypes: ["Tickets"],
+  tagTypes: ["Reports"],
   endpoints: (builder) => ({
-    getTickets: builder.query<ReportType[], void>({
-      queryFn: () => ({ data: getTicketsFromStorage() }),
-      providesTags: ["Tickets"],
+    getReports: builder.query<ReportType[], void>({
+      queryFn: () => ({ data: getReportsFromStorage() }),
+      providesTags: ["Reports"],
     }),
 
-    addTicket: builder.mutation<void, ReportType>({
-      queryFn: (newTicket) => {
-        const tickets = getTicketsFromStorage();
-        saveTicketsToStorage([...tickets, newTicket]);
+    addReport: builder.mutation<void, ReportType>({
+      queryFn: (newReport) => {
+        const reports = getReportsFromStorage();
+        saveReportsToStorage([...reports, newReport]);
         return { data: undefined };
       },
-      invalidatesTags: ["Tickets"],
+      invalidatesTags: ["Reports"],
     }),
 
-    deleteTicket: builder.mutation<void, string>({
+    deleteReport: builder.mutation<void, string>({
       queryFn: (id) => {
-        const tickets = getTicketsFromStorage().filter(
-          (ticket) => ticket.id !== id,
+        const reports = getReportsFromStorage().filter(
+          (report) => report.id !== id,
         );
-        saveTicketsToStorage(tickets);
+        saveReportsToStorage(reports);
         return { data: undefined };
       },
-      invalidatesTags: ["Tickets"],
+      invalidatesTags: ["Reports"],
     }),
   }),
 });
 
 export const {
-  useGetTicketsQuery,
-  useAddTicketMutation,
-  useDeleteTicketMutation,
-} = ticketsApi;
+  useGetReportsQuery,
+  useAddReportMutation,
+  useDeleteReportMutation,
+} = reportApi;
