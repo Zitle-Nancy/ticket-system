@@ -1,14 +1,9 @@
 import type { FormEvent } from "react";
 import { ChevronDownIcon, PhotoIcon } from "@heroicons/react/24/solid";
-import type { FormTypes } from "../types/report.types";
+import type { FormTypes, ReportType } from "../types/report.types";
 import useReportForm from "../hooks/useReportForm";
 
-const ReportForm = ({
-  headTitle,
-  initialValues,
-  onSubmit,
-  onCancel,
-}: FormTypes) => {
+const ReportForm = ({ headTitle, initialValues, onSubmit }: FormTypes) => {
   const { values, handleChange } = useReportForm(initialValues);
 
   const handleSubmit = (event: FormEvent) => {
@@ -59,11 +54,18 @@ const ReportForm = ({
               <select
                 id="priority"
                 name="priority"
+                value={values.priority}
+                onChange={(e) =>
+                  handleChange(
+                    "priority",
+                    e.target.value as ReportType["priority"],
+                  )
+                }
                 className="border col-start-1 row-start-1 w-full appearance-none rounded-md bg-white/5 py-1.5 pr-8 pl-3 text-base text-black outline-1 -outline-offset-1 outline-white/10 *:bg-gray-800 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
               >
-                <option value="low">Baja</option>
-                <option value="medium">Media</option>
-                <option value="high">Alta</option>
+                <option value="Baja">Baja</option>
+                <option value="Media">Media</option>
+                <option value="Alta">Alta</option>
               </select>
               <ChevronDownIcon
                 aria-hidden="true"
@@ -72,27 +74,44 @@ const ReportForm = ({
             </div>
           </div>
 
-          {/* Archivo */}
           <div className="col-span-full">
             <label className="block text-sm font-medium text-black">
               Adjuntar archivo
             </label>
-            <div className="mt-2 flex justify-center rounded-lg border border-dashed px-6 py-10">
+
+            <div className="mt-2 flex justify-center rounded-lg border border-dashed border-black/25 px-6 py-10">
               <div className="text-center">
                 <PhotoIcon className="mx-auto h-12 w-12 text-gray-400" />
-                <label className="mt-4 block cursor-pointer text-sm font-semibold text-indigo-600">
-                  Upload file
-                  {/* <input
+
+                <label
+                  htmlFor="attachment"
+                  className="mt-4 cursor-pointer text-sm font-semibold text-indigo-600 hover:text-indigo-500"
+                >
+                  <span>
+                    {values.attachment ? values.attachment : "Upload a PDF"}
+                  </span>
+
+                  <input
+                    id="attachment"
+                    name="attachment"
                     type="file"
-                    className="hidden"
-                    onChange={(e) =>
-                      handleChange(
-                        "attachment",
-                        e.target.files ? e.target.files[0] : null,
-                      )
-                    }
-                  /> */}
+                    accept="application/pdf"
+                    className="sr-only"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+
+                      if (file.type !== "application/pdf") {
+                        alert("Only PDF files are allowed");
+                        return;
+                      }
+
+                      handleChange("attachment", file.name);
+                    }}
+                  />
                 </label>
+
+                <p className="mt-1 text-xs text-gray-500">PDF only</p>
               </div>
             </div>
           </div>
@@ -100,15 +119,8 @@ const ReportForm = ({
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <button
-          type="button"
-          onClick={onCancel}
-          className="rounded-md px-4 py-2 text-sm font-semibold"
-        >
-          Cancelar
-        </button>
-        <button
           type="submit"
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white"
+          className="rounded-md bg-blue-primary px-4 py-2 text-sm font-semibold text-white"
         >
           Crear ticket
         </button>
